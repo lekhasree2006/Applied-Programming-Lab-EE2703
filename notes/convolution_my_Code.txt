@@ -1,0 +1,55 @@
+def convolve(A, B):
+    Br = B[::-1]
+    result = [0 for i in range(len(A) + len(B) - 1)]
+    A.extend([0 for i in range(len(B) - 1)])
+    Br = [0 for i in range(len(A) - 1)] + Br
+    for i in range(len(result)):
+        for j in range(i+1):
+            result[i] += A[j] * Br[(-1-i+j)]
+    return result
+  
+  
+
+print(convolve([1,2,3], [7,5]))
+
+---------------------------
+
+def most_common_word(text):
+    splitted = text.split()
+    words = []
+    for i in splitted:
+        word = ''
+        for j in i:
+            if j.isalnum():
+                word += j
+            else:
+                word += ' '
+        words.append(word)
+    
+    final_words = []
+    for i in words:
+        new_words = i.split()
+        for j in new_words:
+            final_words.append(j.lower())
+            
+    d = {}
+    for i in final_words:
+        if i not in d:
+            d[i] = 1
+        else:
+            d[i] += 1
+            
+    l_out = []
+    maxi = 0
+    for i in final_words:
+        if d[i] > maxi:
+            maxi = d[i]
+            l_out.extend([i, d[i]])
+        
+    
+    if len(splitted) > 1:
+        return f"'{l_out[0]}' {l_out[1]}"
+        
+
+    
+print(most_common_word("abc,123 abc 123 abc123"))
